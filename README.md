@@ -40,6 +40,78 @@ To begin the process of developing a self-driving car, we upload the recorded im
 - Name the repository with a specified name and set its visibility to public.
 - We will now open a command window to check if Git is installed. If Git is not installed, we will proceed with the installation process [Git](https://git-scm.com/downloads).
 
+Now, we'll navigate to the folder where we have saved the recordings, including both the image and CSV files.
+
+We'll issue the command:
+
+    Git init
+Then
+
+    Git add .
+
+and the folder will be replicated accordingly.
+
+<img src="https://github.com/BenamaraMustapha/Self-Driving-Car-Implementation-Exploring-Behavioural-Cloning-and-Deep-Learning/assets/119163433/85b4b01b-1f7f-4e67-9513-accbe6426bbb">
+
+We'll be utilizing Google Colab for the training process. To begin, we'll open a new Python 3 notebook by navigating to [Google Colab](https://colab.research.google.com/). Once the notebook is open, we'll proceed to clone the repository using the following command:
+
+    !git clone https://github.com/BenamaraMustapha/SDCE
+
+Now, we'll import all the necessary libraries required for the training process. We'll utilize TensorFlow as the backend and Keras at the frontend.
+
+    import os
+    import numpy as np
+    import matplotlib.pyplot as plt
+    import matplotlib.image as mpimg
+    import keras
+    from keras.models import Sequential
+    from keras.optimizers import Adam
+    from keras.layers import Convolution2D, MaxPooling2D, Dropout, Flatten, Dense
+    from sklearn.utils import shuffle
+    from sklearn.model_selection import train_test_split
+    from imgaug import augmenters as iaa
+    import cv2
+    import pandas as pd
+    import ntpath
+    import random
+
+We'll designate "datadir" as the name for the folder itself and utilize its parameters. Utilizing the "head" command, we will display the first five values from the CSV file in the desired format.
+
+    datadir = 'SDCE'
+    columns = ['center', 'left', 'right', 'steering', 'throttle', 'reverse', 'speed']
+    data = pd.read_csv(os.path.join(datadir, 'driving_log.csv'), names = columns)
+    pd.set_option('display.max_colwidth', -1)
+    data.head()
+
+Since the current implementation picks up the entire path from the local machine, we'll use the "ntpath" function to extract the network path. We'll declare a variable named "path_leaf" and assign the extracted network path accordingly.
+
+    def path_leaf(path):
+      head, tail = ntpath.split(path)
+      return tail
+    data['center'] = data['center'].apply(path_leaf)
+    data['left'] = data['left'].apply(path_leaf)
+    data['right'] = data['right'].apply(path_leaf)
+    data.head()
+
+We'll bin the number of values, setting it to 25 to achieve a center distribution (an odd number for this purpose). Then, we'll generate a histogram using the np.histogram function on the 'steering' data frame, dividing it into the specified number of bins.
+
+<img src="https://github.com/BenamaraMustapha/Self-Driving-Car-Implementation-Exploring-Behavioural-Cloning-and-Deep-Learning/assets/119163433/417e6900-a076-43cd-bb9e-81ab6515ba73">
+
+    num_bins = 25
+    samples_per_bin = 400
+    hist, bins = np.histogram(data['steering'], num_bins)
+    center = (bins[:-1]+ bins[1:]) * 0.5
+    plt.bar(center, hist, width=0.05)
+    plt.plot((np.min(data['steering']), np.max(data['steering'])), \
+    (samples_per_bin, samples_per_bin))
+
+We'll maintain the number of samples at 400 and then draw a line. Upon observation, we note that the data is centered around the middle, which is 0.
+
+<img src="https://github.com/BenamaraMustapha/Self-Driving-Car-Implementation-Exploring-Behavioural-Cloning-and-Deep-Learning/assets/119163433/346ea821-599e-490d-9c40-6ba4aa048ed4">
+
+
+
+
 
 
 
