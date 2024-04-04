@@ -1,4 +1,4 @@
-<h1>Self-Driving-Car-Implementation-Exploring-Behavioural-Cloning-and-Deep-Learning</h1>
+<h1>Autonomous Car Implementation-Exploring Behavioural Cloning and Deep Learning</h1>
 <h2>Introduction</h2>
 
 This article delves into the methodology of self-driving cars utilizing the Udacity Open Sourced Self-Driving Car Simulator. It explores the implementation of self-driving cars and how this can be readily adapted to various scenarios, particularly through Behavioral Cloning. This process entails leveraging Deep Neural Networks, employing Convolution Networks for feature extraction, and conducting continuous regression.
