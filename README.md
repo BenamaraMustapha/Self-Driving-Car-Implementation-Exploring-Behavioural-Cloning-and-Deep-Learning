@@ -55,7 +55,7 @@ and the folder will be replicated accordingly.
 
 We'll be utilizing Google Colab for the training process. To begin, we'll open a new Python 3 notebook by navigating to [Google Colab](https://colab.research.google.com/). Once the notebook is open, we'll proceed to clone the repository using the following command:
 
-    !git clone https://github.com/BenamaraMustapha/SDCE
+    !git clone https://github.com/BenamaraMustapha/Self-Driving-Car-Implementation-Exploring-Behavioural-Cloning-and-Deep-Learning
 
 Now, we'll import all the necessary libraries required for the training process. We'll utilize TensorFlow as the backend and Keras at the frontend.
 
